@@ -1,12 +1,43 @@
 <html>
 <head>
 <title>Notes on 'Building a Near Real Time Discovery Platform'</title>
+<meta name="description" content="Notes on AWS tutorial">
+<meta name="keywords" content="AWS,Twitter,near realtime analysis">
+<meta name="author" content="Dave Cuthbert">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 <h1>Introduction</h1>
 <p>
-Assaf Mentzer from AWS put together a very useful learing project in November of 2015, <a href="https://aws.amazon.com/blogs/big-data/building-a-near-real-time-discovery-platform-with-aws/">'Building a Near Real-Time Disovery Platform with AWS'</a>. Since then there seem to have been a few changes in some of the AWS services he used. This page updates Assaf's instructions and adds a few additional tips for anyone getting started with the project. 
+Assaf Mentzer from AWS put together a very useful learing project in November of 2015, <a href="https://aws.amazon.com/blogs/big-data/building-a-near-real-time-discovery-platform-with-aws/">'Building a Near Real-Time Disovery Platform with AWS'</a>.
 </p>
+<p>
+ Since then there seem to have been a few changes in some of the AWS services he used. This page updates Assaf's instructions and adds a few additional tips for anyone getting started with the project. These steps are fairly complete, but they are a suplement, and not a replacement, for Assaf's work. 
+</p>
+<h1>Prerequisites</h1>
+<p>
+No real changes here. The only note is to consider using a new Twitter account instead of your usual one (if you have one) so as not to confuse your usual settings with these data explorations. 
+</p>
+
+<h1>Create Amazon Elasticsearch Service cluster</h1>
+<ol>
+   <li>Sign in to the Elastic Search Service Console</li>
+   <li>If this is your first time choose 'Get Started', otherwise choose 'Create a New Domain'</li>
+   <li>Name your domain “es-twitter-demo” and choose Next</li>
+   <li>After naming the domain for your elasticsearch service Assaf recommends accepting the defaults on the next page. The defaults are reasonable, but it is a bit cheaper to use a smaller EC instance to host the elasticsearch domain. The t2.medium.elasticsearch works well for simple experimentation.</li>
+   <li>Choose 'Allow Open Access' as the domain policy. NOTE: This is a poor security practice and the console will complain about it.</li>
+   <li>Choose 'Confirm and Create'. It takes about 10 minutes for the domain to be set up.</li>
+   <li>When the endpoint is active, click on it</li>
+   <li>The service console will display various details about the newly created service endpoint. Note this information down for later, especially the Eleasticsearch service endpoint and the Kibana URL.</li>
+</ol> 
+
+<h1>Create an IAM role for Firehose</h1>
+<ol>
+   <li>Create the two policy files that will be uploaded using the AWS command line client. (NOTE: On my system, cutting and pasting these lines from the original article introduced various hidden artifacts in the files that caused the upload to fail. If that happens on your system, just retype them. The syntax is correct.)</li>
+   <li>Use the AWS CLI client to uplaod the files</li>
+</ol>
+
+
 </body>
 </html>
