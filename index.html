@@ -36,7 +36,7 @@ No real changes here. The only note is to consider using a new Twitter account i
    <li>When the endpoint is active, click on it.<br>
    <a target="_blank" href="screen-shots/004..domain-active-confirmation.jpg"><img src="screen-shots/004..domain-active-confirmation.jpg"></a></li>
    <li>The service console will display various details about the newly created service endpoint. Note this information down for later, especially the Eleasticsearch service endpoint and the Kibana URL.<br>
-   <a target="_blank" href="creen-shots/005..domain-active-details.jpg"><img src="screen-shots/005..domain-active-details.jpg"></a></li>
+   <a target="_blank" href="screen-shots/005..domain-active-details.jpg"><img src="screen-shots/005..domain-active-details.jpg"></a></li>
 </ol> 
 
 <h1>Create an IAM role for Firehose</h1>
@@ -59,19 +59,32 @@ No real changes here. The only note is to consider using a new Twitter account i
    <li>Sign in to the Lambda console.</li>
    <li>Choose 'Create a Lambda function'.<br>NOTE: Choose 'Get started now' if this is your first time using Lambda.</li>
    <li>Choose 'Configure triggers' from the list of choices at top left of the screen.<br>
-   <a target="_blank" href="screen-shots/008..lambda-config.py.jpg"><img src="screen-shots/008..lambda-config.py.jpg"></a></li>
+   <a target="_blank" href="screen-shots/008..lambda-config.jpg"><img src="screen-shots/008..lambda-config.jpg"></a></li>
    <li>Click inside the dotted lines and choose the S3 source from the drop down list.<br>
    <a target="_blank" href="screen-shots/009..lambda-config-set-source.jpg"><img src="screen-shots/009..lambda-config-set-source.jpg"></a></li>
-   <li>Enter your bucket name and be sure the 'Enable trigger'box is checked.<br>
+   <li>Enter your bucket name and be sure the 'Enable trigger' box is checked.<br>
    <a target="_blank" href="screen-shots/010..lambda-config-source-config.jpg"><img src="screen-shots/010..lambda-config-source-config.jpg"></a></li>
-   <li></li>
-   <li></li>
-   <li></li>
-   <li></li>
-   <li></li>
-   <li></li>
-   <li></li>
-   <li></li>
+   <li>On the next screen select:
+       <ul>
+           <li>Name: 's3-twitter-to-es-python'</li>
+           <li>Runtime: 'Python2.7'</li>
+           <li>Code entry: 'Upload a .ZIP file' (Click the button to upload the .zip created a few steps ago.)</li>
+           <li>Handler: 'lambda_function.lambda_handler'</li>
+           <li>Role: 'Create new role from templates(s)'</li>
+           <li>Role name: lamdba_s3_exec_role'</li>
+           <li>Memory: 128</li>
+           <li>Timeout: 2 minutes</li>
+       </ul><br>
+       <a target="_blank" href="screen-shots/012..lambda-config-function-top.jpg"><img src="screen-shots/012..lambda-config-function-top.jpg"></a>
+       <a target="_blank" href="screen-shots/011..lambda-config-function-bottom.jpg"><img src="screen-shots/011..lambda-config-function-bottom.jpg"></a>
+   </li>
+   <li>Create the function</li>
+   <li>Verify the role was created properly<br>
+       <a target="_blank" href="screen-shots/013..roles-visible-in-the-aws-console.jpg"><img src="screen-shots/013..roles-visible-in-the-aws-console.jpg"></a>
+   </li>
+   <li>Verify the S3 bucket has permissions set properly<br>
+       <a target="_blank" href="screen-shots/011..s3-bucket-permissions.jpg"><img src="screen-shots/011..s3-bucket-permissions.jpg"></a>
+   </li>
 </ol>
 </body>
 </html>
