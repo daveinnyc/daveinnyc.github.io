@@ -86,5 +86,12 @@ No real changes here. The only note is to consider using a new Twitter account i
        <a target="_blank" href="screen-shots/0011..s3-bucket-permissions.jpg"><img src="screen-shots/0011..s3-bucket-permissions.jpg"></a>
    </li>
 </ol>
+<h1>Feed the producer with Twitter streaming data</h1>
+<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a small part of the <a href="https://gist.github.com/robjohnson/702360">available fields</a> from the Twitter stream.</p>
+<h1>Discover and analyze data</h1>
+<p>The data is transfered to the S3 bucket every 5 minutes or when it reaches a particular amount. You should start to see data appearing in S3 soon. Once the first data appears there, the Lambda function should process it. The first itteration should happen in  about five minutes. If not, first verify that data is being written to S3. Then check that the S3 bucket permissions are correct for reading. It is ok to open the bucket to be world readable since it only holds publically available data.</p>
+<p>When ElasticSearch confirmed your domain above the Kibana URL was created. The URL won't return anything until after the Lambda function has processed the first set of data. Once that happens you are free to explore!</p>
+<h2>Happy tweet propecting!</h2>
+
 </body>
-</html>
+</html> 
