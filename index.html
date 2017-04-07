@@ -9,13 +9,12 @@
 </head>
 
 <body>
-<h1>**** IN PROGRESS ****</h1>
-<h1>Introduction</h1>
+<h1>Notes on 'Building a Near Real Time Discovery Platform'</h1>
 <p>
 Assaf Mentzer from AWS put together a very useful learing project in November of 2015, <a href="https://aws.amazon.com/blogs/big-data/building-a-near-real-time-discovery-platform-with-aws/">'Building a Near Real-Time Disovery Platform with AWS'</a>.
 </p>
 <p>
- Since then there seem to have been a few changes in some of the AWS services he used. This page updates Assaf's instructions and adds a few additional tips for anyone getting started with the project. These steps are fairly complete, but they are a suplement, and not a replacement, for Assaf's work. 
+ Since then there seem to have been a few changes in some of the AWS services he used. This page updates Assaf's instructions and adds a few additional tips for anyone getting started with the project. These steps are fairly complete, but they are a suplement, and not a replacement, for Assaf's work. I hope it helps others with the demo.  
 </p>
 <h1>Prerequisites</h1>
 <p>
@@ -91,7 +90,7 @@ No real changes here. The only note is to consider using a new Twitter account i
 <h1>Discover and analyze data</h1>
 <p>The data is transfered to the S3 bucket every 5 minutes or when it reaches a particular amount. You should start to see data appearing in S3 soon. Once the first data appears there, the Lambda function should process it. The first itteration should happen in  about five minutes. If not, first verify that data is being written to S3. Then check that the S3 bucket permissions are correct for reading. It is ok to open the bucket to be world readable since it only holds publically available data.</p>
 <p>When ElasticSearch confirmed your domain above the Kibana URL was created. The URL won't return anything until after the Lambda function has processed the first set of data. Once that happens you are free to explore!</p>
-<h2>Happy tweet propecting!</h2>
+<h2>Happy tweet prospecting!</h2>
 
 </body>
 </html> 
