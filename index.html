@@ -26,27 +26,27 @@ No real changes here. The only note is to consider using a new Twitter account i
 <ol>
    <li>Sign in to the Elastic Search Service Console.</li>
    <li>If this is your first time choose 'Get Started', otherwise choose 'Create a New Domain'.</li>
-   <a>target="_blank" href="screen-shots/001..elastic-search-blank.jpg"><img src="screen-shots/001..elastic-search-blank.jpg"></a>
+   <a target="_blank" href="screen-shots/001..elastic-search-blank.jpg"><img src="screen-shots/001..elastic-search-blank.jpg"></a>
    <li>Name your domain “es-twitter-demo” and choose 'Next'.</li>
    <li>After naming the domain for your elasticsearch service Assaf recommends accepting the defaults on the next page. The defaults are reasonable, but it is a bit cheaper to use a smaller EC instance to host the elasticsearch domain. The t2.medium.elasticsearch works well for simple experimentation.</li>
    <li>Choose 'Allow Open Access' as the domain policy. <br>NOTE: This is a poor security practice and the console will complain about it.</li>
-   <a>target="_blank" href="screen-shots/002..domain-access-policy.jpg"><img src="screen-shots/002..domain-access-policy.jpg"></a>
+   <a target="_blank" href="screen-shots/002..domain-access-policy.jpg"><img src="screen-shots/002..domain-access-policy.jpg"></a>
    <li>Choose 'Confirm and Create'. It takes about 10 minutes for the domain to be set up.</li>
-   <a>target="_blank" href="screen-shots/003..domain-creation-confirmation.jpg"><img src="screen-shots/003..domain-creation-confirmation.jpg"></a>
+   <a target="_blank" href="screen-shots/003..domain-creation-confirmation.jpg"><img src="screen-shots/003..domain-creation-confirmation.jpg"></a>
    <li>When the endpoint is active, click on it.</li>
-   <a>target="_blank" href="screen-shots/004..domain-active-confirmation.jpg"><img src="screen-shots/004..domain-active-confirmation.jpg"></a>
+   <a target="_blank" href="screen-shots/004..domain-active-confirmation.jpg"><img src="screen-shots/004..domain-active-confirmation.jpg"></a>
    <li>The service console will display various details about the newly created service endpoint. Note this information down for later, especially the Eleasticsearch service endpoint and the Kibana URL.</li>
-   <a> target="_blank" href="creen-shots/005..domain-active-details.jpg"><a> target="_blank" href=""><img src="screen-shots/005..domain-active-details.jpg"></a>
+   <a target="_blank" href="creen-shots/005..domain-active-details.jpg"><img src="screen-shots/005..domain-active-details.jpg"></a>
 </ol> 
 
 <h1>Create an IAM role for Firehose</h1>
 <ol>
    <li>Create the two policy files that will be uploaded using the AWS command line client. <br>NOTE: On my system, cutting and pasting these lines from the original article introduced various hidden artifacts in the files that caused the upload to fail. If that happens on your system, just retype them. The syntax Assaf gives in the original article is correct.</li>
    <li>Edit the s3-rw-policy.json file to use your S3 bucket<li>
-   <a>target="_blank" href="screen-shots/006..create-policies.jpg"><img src="screen-shots/006..create-policies.jpg"></a>
+   <a target="_blank" href="screen-shots/006..create-policies.jpg"><img src="screen-shots/006..create-policies.jpg"></a>
    <li>Use the AWS CLI client to upload the files.</li>
    <li>Check that the policy has been uploaded properly</li>
-   <a>target="_blank" href="screen-shots/007..policy-visible-in-aws-console.jpg"><img src="screen-shots/007..policy-visible-in-aws-console.jpg"></a>
+   <a target="_blank" href="screen-shots/007..policy-visible-in-aws-console.jpg"><img src="screen-shots/007..policy-visible-in-aws-console.jpg"></a>
 </ol>
 
 <h1>Create a Lambda function</h1>
@@ -54,16 +54,16 @@ No real changes here. The only note is to consider using a new Twitter account i
 <ol>
    <li>Download the deployment package and unzip to the s3-twitter-to-es-python folder.</li>
    <li>Modify the s3-twitter-to-es-python/config.py file. Edit the file so that the value of es_host matches Elasticsearch Service endpoint for your domain.</li>
-   <a> target="_blank" href="screen-shots/007..config.py.jpg"><img src="screen-shots/007..config.py.jpg">
+   <a target="_blank" href="screen-shots/007..config.py.jpg"><img src="screen-shots/007..config.py.jpg"></a>
    <li>Zip the folder content on your local environment as my-s3-twitter-to-es-python.zip <br>NOTE: It is important to zip the folder content not jut zip up the folder itself.</li>
    <li>Sign in to the Lambda console.</li>
    <li>Choose 'Create a Lambda function'.<br>NOTE: Choose 'Get started now' if this is your first time using Lambda.</li>
    <li>Choose 'Configure triggers' from the list of choices at top left of the screen.</li>
-   <a>target="_blank" href="screen-shots/008..lambda-config.py.jpg"><img src="screen-shots/008..lambda-config.py.jpg"></a>
+   <a target="_blank" href="screen-shots/008..lambda-config.py.jpg"><img src="screen-shots/008..lambda-config.py.jpg"></a>
    <li>Click inside the dotted lines and choose the S3 source from the drop down list.</li>
-   <a>target="_blank" href="screen-shots/009..lambda-config-set-source.jpg"><img src="screen-shots/009..lambda-config-set-source.jpg"></a>
+   <a target="_blank" href="screen-shots/009..lambda-config-set-source.jpg"><img src="screen-shots/009..lambda-config-set-source.jpg"></a>
    <li>Enter your bucket name and be sure the 'Enable trigger'box is checked.</li>
-   <a>target="_blank" href="screen-shots/010..lambda-config-source-config.jpg"><img src="screen-shots/010..lambda-config-source-config.jpg"></a>
+   <a target="_blank" href="screen-shots/010..lambda-config-source-config.jpg"><img src="screen-shots/010..lambda-config-source-config.jpg"></a>
    <li></li>
    <li></li>
    <li></li>
