@@ -28,7 +28,6 @@ img {
     padding: 2px;
     width: 350px;
     margin-left: 140px;
-    padding-top: 5px;
 }
 
 img:hover {
@@ -49,4 +48,7 @@ a:hover {
 
 a:active {
     color: blue;
+
+br {
+    padding-top: 5px;
 }
