@@ -17,7 +17,11 @@ li {
     margin: auto;
 }
 
+img {
+    border: 2px solid orange
+}
+
 img.resize {
-    width: 700px;
+    width: 400px;
     height: auto;
 }

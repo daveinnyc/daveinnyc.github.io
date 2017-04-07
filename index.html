@@ -36,12 +36,17 @@ No real changes here. The only note is to consider using a new Twitter account i
    <li>When the endpoint is active, click on it.</li>
    <img src="screen-shots/004..domain-active-confirmation.jpg">
    <li>The service console will display various details about the newly created service endpoint. Note this information down for later, especially the Eleasticsearch service endpoint and the Kibana URL.</li>
+   <img src="screen-shots/005..domain-active-details.jpg">
 </ol> 
 
 <h1>Create an IAM role for Firehose</h1>
 <ol>
    <li>Create the two policy files that will be uploaded using the AWS command line client. <br>NOTE: On my system, cutting and pasting these lines from the original article introduced various hidden artifacts in the files that caused the upload to fail. If that happens on your system, just retype them. The syntax Assaf gives in the original article is correct.</li>
+   <li>Edit the s3-rw-policy.json file to use your S3 bucket<li>
+   <img src="006..create-policies.jpg">
    <li>Use the AWS CLI client to upload the files.</li>
+   <li>Check that the policy has been uploaded properly</li>
+   <img src="007..policy-visible-in-aws-console.jpg">
 </ol>
 
 <h1>Create a Lambda function</h1>
@@ -49,10 +54,22 @@ No real changes here. The only note is to consider using a new Twitter account i
 <ol>
    <li>Download the deployment package and unzip to the s3-twitter-to-es-python folder.</li>
    <li>Modify the s3-twitter-to-es-python/config.py file. Edit the file so that the value of es_host matches Elasticsearch Service endpoint for your domain.</li>
+   <img src="007..config.py.jpg">
    <li>Zip the folder content on your local environment as my-s3-twitter-to-es-python.zip <br>NOTE: It is important to zip the folder content not jut zip up the folder itself.</li>
    <li>Sign in to the Lambda console.</li>
    <li>Choose 'Create a Lambda function'.<br>NOTE: Choose 'Get started now' if this is your first time using Lambda.</li>
    <li>Choose 'Configure triggers' from the list of choices at top left of the screen.</li>
+   <img src="008..lambda-config.py.jpg">
+   <li>Click inside the dotted lines and choose the S3 source from the drop down list.</li>
+   <img src="009..lambda-config-set-source.jpg">
+   <li>Enter your bucket name and be sure the 'Enable trigger'box is checked.</li>
+   <img src="010..lambda-config-source-config.jpg">
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
    <li></li>
    <li></li>
 </ol>
