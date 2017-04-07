@@ -22,6 +22,7 @@ img {
     border: 1px solid orange;
     padding: 2px;
     width: 350px;
+    margin-left: 140px;
 }
 
 img:hover {
