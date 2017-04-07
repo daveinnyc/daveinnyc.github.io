@@ -24,22 +24,37 @@ No real changes here. The only note is to consider using a new Twitter account i
 
 <h1>Create Amazon Elasticsearch Service cluster</h1>
 <ol>
-   <li>Sign in to the Elastic Search Service Console</li>
-   <li>If this is your first time choose 'Get Started', otherwise choose 'Create a New Domain'</li>
-   <li>Name your domain “es-twitter-demo” and choose Next</li>
+   <li>Sign in to the Elastic Search Service Console.</li>
+   <li>If this is your first time choose 'Get Started', otherwise choose 'Create a New Domain'.</li>
+   <img source="screen-shots/001.elastic-search-blank.jpg">
+   <li>Name your domain “es-twitter-demo” and choose 'Next'.</li>
    <li>After naming the domain for your elasticsearch service Assaf recommends accepting the defaults on the next page. The defaults are reasonable, but it is a bit cheaper to use a smaller EC instance to host the elasticsearch domain. The t2.medium.elasticsearch works well for simple experimentation.</li>
-   <li>Choose 'Allow Open Access' as the domain policy. NOTE: This is a poor security practice and the console will complain about it.</li>
+   <li>Choose 'Allow Open Access' as the domain policy. <br>NOTE: This is a poor security practice and the console will complain about it.</li>
+   <img source="screen-shots/002..domain-access-poicy.jpg">
    <li>Choose 'Confirm and Create'. It takes about 10 minutes for the domain to be set up.</li>
-   <li>When the endpoint is active, click on it</li>
+   <img source="screen-shots/003..domain-creation-confirmation.jpg">
+   <li>When the endpoint is active, click on it.</li>
+   <img source="screen-shots/004..domain-active-confirmation.jpg">
    <li>The service console will display various details about the newly created service endpoint. Note this information down for later, especially the Eleasticsearch service endpoint and the Kibana URL.</li>
 </ol> 
 
 <h1>Create an IAM role for Firehose</h1>
 <ol>
-   <li>Create the two policy files that will be uploaded using the AWS command line client. (NOTE: On my system, cutting and pasting these lines from the original article introduced various hidden artifacts in the files that caused the upload to fail. If that happens on your system, just retype them. The syntax is correct.)</li>
-   <li>Use the AWS CLI client to uplaod the files</li>
+   <li>Create the two policy files that will be uploaded using the AWS command line client. <br>NOTE: On my system, cutting and pasting these lines from the original article introduced various hidden artifacts in the files that caused the upload to fail. If that happens on your system, just retype them. The syntax Assaf gives in the original article is correct.</li>
+   <li>Use the AWS CLI client to upload the files.</li>
 </ol>
 
-
+<h1>Create a Lambda function</h1>
+<p>This section deviates from the original quite a bit. The outcome is the same, but the Lambda function setup and configuration process appears to have been updated.</p> 
+<ol>
+   <li>Download the deployment package and unzip to the s3-twitter-to-es-python folder.</li>
+   <li>Modify the s3-twitter-to-es-python/config.py file. Edit the file so that the value of es_host matches Elasticsearch Service endpoint for your domain.</li>
+   <li>Zip the folder content on your local environment as my-s3-twitter-to-es-python.zip <br>NOTE: It is important to zip the folder content not jut zip up the folder itself.</li>
+   <li>Sign in to the Lambda console.</li>
+   <li>Choose 'Create a Lambda function'.<br>NOTE: Choose 'Get started now' if this is your first time using Lambda.</li>
+   <li>Choose 'Configure triggers' from the list of choices at top left of the screen.</li>
+   <li></li>
+   <li></li>
+</ol>
 </body>
 </html>
