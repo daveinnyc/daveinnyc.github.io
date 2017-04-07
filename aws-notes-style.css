@@ -28,6 +28,7 @@ img {
     padding: 2px;
     width: 350px;
     margin-left: 140px;
+    padding-top: 5px;
 }
 
 img:hover {
