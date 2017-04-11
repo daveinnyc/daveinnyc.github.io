@@ -86,7 +86,45 @@ No real changes here. The only note is to consider using a new Twitter account i
    </li>
 </ol>
 <h1>Feed the producer with Twitter streaming data</h1>
-<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a small part of the <a href="https://gist.github.com/robjohnson/702360">available fields</a> from the Twitter stream.</p>
+<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a few of the available fields from the Twitter stream. In order to increase the number of Tweets you can expand the collection area beyond the US. You can also increase the amount of data collect in each Tweet by modifying the Lambda Function befor uploading it. Here's how:</p>
+
+<h3>Add countries outside the US to the stream</h3>
+<p>This sends a LOT of data for the demo to process.</p>
+<ol>
+   <li>Go to the node.js host.</li>
+   <li>Change directory to twitter-streaming-firehose-nodejs.</li>
+   <li>Edit config.js to comment out the regional filter.<br>
+       <a target="_blank" href="screen-shots/015..send-all-tweets.jpg"><img src="screen-shots/015..send-all-tweets.jpg"></a></li>
+   <li>Restart the node server.</li>
+</ol>
+
+<h3>Add new fields to the stream</h3>
+<ol>
+   <li>Go to the s3-twitter-to-es-python directory.
+   <li>Edit tweet_utils.py to add additional fields in the get_tweets() function.<br>
+   <a target="_blank" href="screen-shots/1001..tweet_utils.py.jpg"><img src="screen-shots/1001..tweet_utils.py.jpg"></a></li>
+   <li>Rob Johnson has compiled a list of <a href="https://gist.github.com/robjohnson/702360">available fields</a>.</li>
+   <li>Zip up the directory again</li>
+   <li>Go to your function in the Lambda Management console.</li>
+   <li>Upload the new .zip file. It will replace the old function.</li>
+   <li>Go to the monitoting tab.</li>
+   <li>Click on 'View logs in  CloudWatch' to verify the new function works properly. These logs are very useful to debug any errors in the python script.<br>
+       <a target="_blank" href="screen-shots/1003..view-logs-in-cloudwatch.jpg"><img src="screen-shots/1003..view-logs-in-cloudwatch.jpg"></a><br>
+       <a target="_blank" href="screen-shots/1004..view-logs-in-cloudwatch.jpg"><img src="screen-shots/1004..view-logs-in-cloudwatch.jpg"></a></li>
+</ol>
+
+<h3>Add new indices to Kibana</h3>
+<p>It may be useful to add another index to segregate your information streams. You can do it like this:</p>
+<ol>
+   <li>Go to the s3-twitter-to-es-python directory. 
+   <li>Edit twitter_to_es.py to update the index name.<br>
+   <a target="_blank" href="screen-shots/1002..twitter_to_es.py.jpg"><img src="screen-shots/1002..twitter_to_es.py.jpg"></a></li>
+   <li>Zip up the directory again</li>
+   <li>Go to your function in the Lambda Management console.</li>
+   <li>Upload the new .zip file. You will see the new index listed on the 'Indices' tab for for ElasticSearch domain.</li>
+</ol>
+
+
 <h1>Discover and analyze data</h1>
 <p>The data is transfered to the S3 bucket every 5 minutes or when it reaches a particular amount. You should start to see data appearing in S3 soon. Once the first data appears there, the Lambda function should process it. The first itteration should happen in  about five minutes. If not, first verify that data is being written to S3. Then check that the S3 bucket permissions are correct for reading. It is ok to open the bucket to be world readable since it only holds publically available data.</p>
 <p>When ElasticSearch confirmed your domain above the Kibana URL was created. The URL won't return anything until after the Lambda function has processed the first set of data. Once that happens you are free to explore!</p>
