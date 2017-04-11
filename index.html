@@ -86,7 +86,7 @@ No real changes here. The only note is to consider using a new Twitter account i
    </li>
 </ol>
 <h1>Feed the producer with Twitter streaming data</h1>
-<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a few of the available fields from the Twitter stream. In order to increase the number of Tweets you can expand the collection area beyond the US. You can also increase the amount of data collect in each Tweet by modifying the Lambda Function befor uploading it. Here's how:</p>
+<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a few of the available fields from the Twitter stream. When starting out it is probably best to stick with the standard configuration for the demo. If you want to change the data streams later on, here are some tips on how to do it."</p> 
 
 <h3>Add countries outside the US to the stream</h3>
 <p>This sends a LOT of data for the demo to process.</p>
@@ -99,6 +99,7 @@ No real changes here. The only note is to consider using a new Twitter account i
 </ol>
 
 <h3>Add new fields to the stream</h3>
+<p>You can increase the amount of data collected in each Tweet by modifying the Lambda Function. Here's how:</p>
 <ol>
    <li>Go to the s3-twitter-to-es-python directory.
    <li>Edit tweet_utils.py to add additional fields in the get_tweets() function.<br>
