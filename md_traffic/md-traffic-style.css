@@ -13,3 +13,17 @@
     position: relative;
 }
 
+.output {
+   margin: auto;
+   width: 75%;
+   height: 50px;
+   overflow: hidden;
+}
+
+#sql-years.output:hover {
+   height: 900px;
+}
+
+#sum-count.output:hover {
+   height: 500px;
+}

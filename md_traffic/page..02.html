@@ -14,11 +14,80 @@
        <h1 id="h1-hero">Continued - MD traffic data project</h1>
     </div>
  </div>
+<h2>Working with the data</h2>
+<p>Since the values for the year field were known to be bad, the first step was to define a range of data. Since the file was last updated in 2015, any more recent dates had to be errors. The number of rows per year dropped off sharply before 1994, but were still significant until the early 1990's. The period from 1990 to 2015 was chosen as most likely to hold accurate values.
+</p>
+<div class="output" id="sql-years">
+<pre>
+        sqlite> SELECT year, count(year) FROM alldata GROUP BY year;
+        0       809
+        4       3
+        5       1
+        6       3
+          --- SNIP ---
+        1986    778
+        1987    1119
+        1988    1509
+        1989    1689
+        1990    3005
+        1991    3659
+        1992    5651
+        1993    6881
+        1994    12017
+        1995    16694
+        1996    18729
+        1997    25766
+        1998    30632
+        1999    39528
+        2000    51483
+        2001    51493
+        2002    59170
+        2003    64478
+        2004    66794
+        2005    67255
+        2006    68922
+        2007    68032
+        2008    59877
+        2009    44734
+        2010    53482
+        2011    54611
+        2012    57094
+        2013    51225
+        2014    39097
+        2015    29480
+        2016    14522
+        2017    2022
+        2018    4
+        2019    12
+        2020    4
+          --- SNIP ---
+        7247    1
+        7266    2
+        7513    1
+        7575    1
+        8008    2
+        8042    3
+        8615    1
+        8739    2
+        9035    2
+        9382    1
+        9510    1
+        9563    1
+        9867    1
+        9999    29
+                6788
+        01 - Motorcycle 1
+        INFINITI        1
+        Year    1
+</pre>
+</div>
+<!--
 <br><a target="_blank" href="images/errors-v-total-lines.jpg"><img src="images/errors-v-total-lines.jpg" alt="parsing errors"></a></p>
+-->
 </p>
 
 <div id="pagenav">Previous: <a href="index.html">Getting started</a> 
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next: <a href="page..03.html">Working with the data</a></div>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next: <a href="page..03.html">Additional notes</a></div>
 </body>
 </html>
 

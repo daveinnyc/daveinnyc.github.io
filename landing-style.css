@@ -1,6 +1,7 @@
 /* The hero image */
 .hero-image {
-    /* The image used */
+    /* The image used 
+    https://eoimages.gsfc.nasa.gov/images/imagerecords/84000/84778/iss041e105277_lrg.jpg */
     background-image: url("images/nasa-image..02.jpg");
 
     /* Set a specific height */
