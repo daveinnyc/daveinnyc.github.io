@@ -20,6 +20,11 @@
    overflow: hidden;
 }
 
+.construction {
+   margin: auto;
+   width: 700px;
+}
+
 #sql-years.output:hover {
    height: 900px;
 }
