@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Notes on 'Building a Near Real Time Discovery Platform'</title>
+<meta name="description" content="Notes on AWS tutorial">
+<meta name="keywords" content="AWS,Twitter,near realtime analysis">
+<meta name="author" content="Dave Cuthbert">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../shared.css">
+<link rel="stylesheet" type="text/css" href="aws-notes-style.css">
+</head>
+
+<body>
+<div class="hero-image">
+    <div class="hero-text">
+       <h1 id="h1-hero">Countinued -- Notes on building a near real time discovery platform</h1>
+    </div>
+ </div>
+
+<h1>Feed the producer with Twitter streaming data</h1>
+<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a few of the available fields from the Twitter stream. When starting out it is probably best to stick with the standard configuration for the demo. <br>If you want to change the data streams later on, here are some tips on how to do it."</p> 
+
+<h3>Add countries outside the US to the stream</h3>
+<p>This sends a LOT of data for the demo to process.</p>
+<ol>
+   <li>Go to the node.js host.</li>
+   <li>Change directory to twitter-streaming-firehose-nodejs.</li>
+   <li>Edit config.js to comment out the regional filter.<br>
+       <a target="_blank" href="screen-shots/015..send-all-tweets.jpg"><img src="screen-shots/015..send-all-tweets.jpg"></a></li>
+   <li>Restart the node server.</li>
+</ol>
+
+<h3>Add new fields to the stream</h3>
+<p>You can increase the amount of data collected in each Tweet by modifying the Lambda Function. Here's how:</p>
+<ol>
+   <li>Go to the s3-twitter-to-es-python directory.
+   <li>Edit tweet_utils.py to add additional fields in the get_tweets() function.<br>
+   <a target="_blank" href="screen-shots/1001..tweet_utils.py.jpg"><img src="screen-shots/1001..tweet_utils.py.jpg"></a></li>
+   <li>Rob Johnson has compiled a list of <a href="https://gist.github.com/robjohnson/702360">available fields</a>.</li>
+   <li>Zip up the directory again</li>
+   <li>Go to your function in the Lambda Management console.</li>
+   <li>Upload the new .zip file. It will replace the old function.</li>
+   <li>Go to the monitoting tab.</li>
+   <li>Click on 'View logs in  CloudWatch' to verify the new function works properly. These logs are very useful to debug any errors in the python script.<br>
+       <a target="_blank" href="screen-shots/1003..view-logs-in-cloudwatch.jpg"><img src="screen-shots/1003..view-logs-in-cloudwatch.jpg"></a><br>
+       <a target="_blank" href="screen-shots/1004..view-logs-in-cloudwatch.jpg"><img src="screen-shots/1004..view-logs-in-cloudwatch.jpg"></a></li>
+</ol>
+
+<h3>Add new indices to Kibana</h3>
+<p>It may be useful to add another index to segregate your information streams. You can do it like this:</p>
+<ol>
+   <li>Go to the s3-twitter-to-es-python directory. 
+   <li>Edit twitter_to_es.py to update the index name.<br>
+   <a target="_blank" href="screen-shots/1002..twitter_to_es.py.jpg"><img src="screen-shots/1002..twitter_to_es.py.jpg"></a></li>
+   <li>Zip up the directory again</li>
+   <li>Go to your function in the Lambda Management console.</li>
+   <li>Upload the new .zip file. You will see the new index listed on the 'Indices' tab for for ElasticSearch domain.</li>
+</ol>
+
+
+<h1>Discover and analyze data</h1>
+<p>The data is transfered to the S3 bucket every 5 minutes or when it reaches a particular amount. You should start to see data appearing in S3 soon. Once the first data appears there, the Lambda function should process it. The first itteration should happen in  about five minutes. If not, first verify that data is being written to S3. Then check that the S3 bucket permissions are correct for reading. It is ok to open the bucket to be world readable since it only holds publically available data.</p>
+<p>When ElasticSearch confirmed your domain above the Kibana URL was created. The URL won't return anything until after the Lambda function has processed the first set of data. Once that happens you are free to explore!</p>
+<h2>Happy tweet prospecting!</h2>
+<div id="pagenav">Previous: <a href="page..02.html">Create a Lambda function</a></div> 
+</body>
+</html> 

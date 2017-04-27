@@ -1,0 +1,15 @@
+/* The hero image */
+.hero-image {
+    /* The image used */
+    background-image: url("../images/nasa-image..02.jpg");
+
+    /* Set a specific height */
+    height: 35%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+

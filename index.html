@@ -1,135 +1,32 @@
 <html>
 <head>
-<title>Notes on 'Building a Near Real Time Discovery Platform'</title>
-<meta name="description" content="Notes on AWS tutorial">
-<meta name="keywords" content="AWS,Twitter,near realtime analysis">
+<title>Data Analysis Journeys and Explorations</title>
+<meta name="description" content="Site landing page">
+<meta name="keywords" content="AWS,Twitter,data analysis">
 <meta name="author" content="Dave Cuthbert">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="aws-notes-style.css">
+<link rel="stylesheet" type="text/css" href="shared.css">
+<link rel="stylesheet" type="text/css" href="landing-style.css">
 </head>
 
 <body>
-<h1>Notes on 'Building a Near Real Time Discovery Platform'</h1>
-<p>
-Assaf Mentzer from AWS put together a very useful learing project in November of 2015, <a href="https://aws.amazon.com/blogs/big-data/building-a-near-real-time-discovery-platform-with-aws/">'Building a Near Real-Time Disovery Platform with AWS'</a>.
-</p>
-<p>
- Since then there seem to have been a few changes in some of the AWS services he used. This page updates Assaf's instructions and adds a few additional tips for anyone getting started with the project. These steps are fairly complete, but they are a suplement, and not a replacement, for Assaf's work. I hope it helps others with the demo.  
-</p>
-<h1>Prerequisites</h1>
-<p>
-No real changes here. The only note is to consider using a new Twitter account instead of your usual one (if you have one) so as not to confuse your usual settings with these data explorations. 
-</p>
+<div class="hero-image">
+   <div class="hero-text">
+      <h1 id="h1-hero">What's here?</h1>
+   </div>
+</div>
 
-<h1>Create Amazon Elasticsearch Service cluster</h1>
-<ol>
-   <li>Sign in to the Elastic Search Service Console.</li>
-   <li>If this is your first time choose 'Get Started', otherwise choose 'Create a New Domain'.<br>
-   <a target="_blank" href="screen-shots/001..elastic-search-blank.jpg"><img src="screen-shots/001..elastic-search-blank.jpg"></a></li>
-   <li>Name your domain “es-twitter-demo” and choose 'Next'.</li>
-   <li>After naming the domain for your elasticsearch service Assaf recommends accepting the defaults on the next page. The defaults are reasonable, but it is a bit cheaper to use a smaller EC instance to host the elasticsearch domain. The t2.medium.elasticsearch works well for simple experimentation.</li>
-   <li>Choose 'Allow Open Access' as the domain policy. <br>NOTE: This is a poor security practice and the console will complain about it.<br>
-   <a target="_blank" href="screen-shots/002..domain-access-policy.jpg"><img src="screen-shots/002..domain-access-policy.jpg"></a></li>
-   <li>Choose 'Confirm and Create'. It takes about 10 minutes for the domain to be set up.<br>
-   <a target="_blank" href="screen-shots/003..domain-creation-confirmation.jpg"><img src="screen-shots/003..domain-creation-confirmation.jpg"></a></li>
-   <li>When the endpoint is active, click on it.<br>
-   <a target="_blank" href="screen-shots/004..domain-active-confirmation.jpg"><img src="screen-shots/004..domain-active-confirmation.jpg"></a></li>
-   <li>The service console will display various details about the newly created service endpoint. Note this information down for later, especially the Eleasticsearch service endpoint and the Kibana URL.<br>
-   <a target="_blank" href="screen-shots/005..domain-active-details.jpg"><img src="screen-shots/005..domain-active-details.jpg"></a></li>
-</ol> 
-
-<h1>Create an IAM role for Firehose</h1>
-<ol>
-   <li>Create the two policy files that will be uploaded using the AWS command line client. <br>NOTE: On my system, cutting and pasting these lines from the original article introduced various hidden artifacts in the files that caused the upload to fail. If that happens on your system, just retype them. The syntax Assaf gives in the original article is correct.</li>
-   <li>Edit the s3-rw-policy.json file to use your S3 bucket<br>
-   <a target="_blank" href="screen-shots/006..create-policies.jpg"><img src="screen-shots/006..create-policies.jpg"></a></li>
-   <li>Use the AWS CLI client to upload the files.</li>
-   <li>Check that the policy has been uploaded properly<br>
-   <a target="_blank" href="screen-shots/007..policy-visible-in-aws-console.jpg"><img src="screen-shots/007..policy-visible-in-aws-console.jpg"></a></li>
-</ol>
-
-<h1>Create a Lambda function</h1>
-<p>This section deviates from the original quite a bit. The outcome is the same, but the Lambda function setup and configuration process appears to have been updated.</p> 
-<ol>
-   <li>Download the deployment package and unzip to the s3-twitter-to-es-python folder.</li>
-   <li>Modify the s3-twitter-to-es-python/config.py file. Edit the file so that the value of es_host matches Elasticsearch Service endpoint for your domain.<br>
-   <a target="_blank" href="screen-shots/007..config.py.jpg"><img src="screen-shots/007..config.py.jpg"></a></li>
-   <li>Zip the folder content on your local environment as my-s3-twitter-to-es-python.zip <br>NOTE: It is important to zip the folder content not jut zip up the folder itself.</li>
-   <li>Sign in to the Lambda console.</li>
-   <li>Choose 'Create a Lambda function'.<br>NOTE: Choose 'Get started now' if this is your first time using Lambda.</li>
-   <li>Choose 'Configure triggers' from the list of choices at top left of the screen.<br>
-   <a target="_blank" href="screen-shots/008..lambda-config.jpg"><img src="screen-shots/008..lambda-config.jpg"></a></li>
-   <li>Click inside the dotted lines and choose the S3 source from the drop down list.<br>
-   <a target="_blank" href="screen-shots/009..lambda-config-set-source.jpg"><img src="screen-shots/009..lambda-config-set-source.jpg"></a></li>
-   <li>Enter your bucket name and be sure the 'Enable trigger' box is checked.<br>
-   <a target="_blank" href="screen-shots/010..lambda-config-source-config.jpg"><img src="screen-shots/010..lambda-config-source-config.jpg"></a></li>
-   <li>On the next screen select:
-       <ul>
-           <li>Name: 's3-twitter-to-es-python'</li>
-           <li>Runtime: 'Python2.7'</li>
-           <li>Code entry: 'Upload a .ZIP file' (Click the button to upload the .zip created a few steps ago.)</li>
-           <li>Handler: 'lambda_function.lambda_handler'</li>
-           <li>Role: 'Create new role from templates(s)'</li>
-           <li>Role name: lamdba_s3_exec_role'</li>
-           <li>Memory: 128</li>
-           <li>Timeout: 2 minutes</li>
-       </ul><br>
-       <a target="_blank" href="screen-shots/012..lambda-config-function-top.jpg"><img src="screen-shots/012..lambda-config-function-top.jpg"></a>
-       <a target="_blank" href="screen-shots/011..lambda-config-function-bottom.jpg"><img src="screen-shots/011..lambda-config-function-bottom.jpg"></a>
-   </li>
-   <li>Create the function</li>
-   <li>Verify the role was created properly<br>
-       <a target="_blank" href="screen-shots/013..roles-visible-in-aws-console.jpg"><img src="screen-shots/013..roles-visible-in-aws-console.jpg"></a>
-   </li>
-   <li>Verify the S3 bucket has permissions set properly<br>
-       <a target="_blank" href="screen-shots/0011..s3-bucket-permissions.jpg"><img src="screen-shots/0011..s3-bucket-permissions.jpg"></a>
-   </li>
-</ol>
-<h1>Feed the producer with Twitter streaming data</h1>
-<p>Using the suggested t2.micro instance works well for the node.js host. There aren't any updates to the configuration steps, but be aware that the stock configuration file is limited to US data and it only sends a few of the available fields from the Twitter stream. When starting out it is probably best to stick with the standard configuration for the demo. If you want to change the data streams later on, here are some tips on how to do it."</p> 
-
-<h3>Add countries outside the US to the stream</h3>
-<p>This sends a LOT of data for the demo to process.</p>
-<ol>
-   <li>Go to the node.js host.</li>
-   <li>Change directory to twitter-streaming-firehose-nodejs.</li>
-   <li>Edit config.js to comment out the regional filter.<br>
-       <a target="_blank" href="screen-shots/015..send-all-tweets.jpg"><img src="screen-shots/015..send-all-tweets.jpg"></a></li>
-   <li>Restart the node server.</li>
-</ol>
-
-<h3>Add new fields to the stream</h3>
-<p>You can increase the amount of data collected in each Tweet by modifying the Lambda Function. Here's how:</p>
-<ol>
-   <li>Go to the s3-twitter-to-es-python directory.
-   <li>Edit tweet_utils.py to add additional fields in the get_tweets() function.<br>
-   <a target="_blank" href="screen-shots/1001..tweet_utils.py.jpg"><img src="screen-shots/1001..tweet_utils.py.jpg"></a></li>
-   <li>Rob Johnson has compiled a list of <a href="https://gist.github.com/robjohnson/702360">available fields</a>.</li>
-   <li>Zip up the directory again</li>
-   <li>Go to your function in the Lambda Management console.</li>
-   <li>Upload the new .zip file. It will replace the old function.</li>
-   <li>Go to the monitoting tab.</li>
-   <li>Click on 'View logs in  CloudWatch' to verify the new function works properly. These logs are very useful to debug any errors in the python script.<br>
-       <a target="_blank" href="screen-shots/1003..view-logs-in-cloudwatch.jpg"><img src="screen-shots/1003..view-logs-in-cloudwatch.jpg"></a><br>
-       <a target="_blank" href="screen-shots/1004..view-logs-in-cloudwatch.jpg"><img src="screen-shots/1004..view-logs-in-cloudwatch.jpg"></a></li>
-</ol>
-
-<h3>Add new indices to Kibana</h3>
-<p>It may be useful to add another index to segregate your information streams. You can do it like this:</p>
-<ol>
-   <li>Go to the s3-twitter-to-es-python directory. 
-   <li>Edit twitter_to_es.py to update the index name.<br>
-   <a target="_blank" href="screen-shots/1002..twitter_to_es.py.jpg"><img src="screen-shots/1002..twitter_to_es.py.jpg"></a></li>
-   <li>Zip up the directory again</li>
-   <li>Go to your function in the Lambda Management console.</li>
-   <li>Upload the new .zip file. You will see the new index listed on the 'Indices' tab for for ElasticSearch domain.</li>
-</ol>
-
-
-<h1>Discover and analyze data</h1>
-<p>The data is transfered to the S3 bucket every 5 minutes or when it reaches a particular amount. You should start to see data appearing in S3 soon. Once the first data appears there, the Lambda function should process it. The first itteration should happen in  about five minutes. If not, first verify that data is being written to S3. Then check that the S3 bucket permissions are correct for reading. It is ok to open the bucket to be world readable since it only holds publically available data.</p>
-<p>When ElasticSearch confirmed your domain above the Kibana URL was created. The URL won't return anything until after the Lambda function has processed the first set of data. Once that happens you are free to explore!</p>
-<h2>Happy tweet prospecting!</h2>
-
+<div>
+   <p>Learning by doing is a great technique, 
+      <br>reflection reinforces what's been learned, 
+      <br>and writing forces reflection. 
+   </p>
+   <p>So as an aid to learning - here are some reflections from experiments with data analysis.</p>
+   <p>The list of pages will grow over time, here are the first ones:</p>
+   <ul>
+      <li><a href="aws_twitter/index.html">Notes on using AWS to process a Twiter feed.</a></li>
+      <li><a href="md_traffic/index.html">An investigation using government provided traffic data.</a></li>
+   </ul>
 </body>
-</html> 
+</html>
+ 
