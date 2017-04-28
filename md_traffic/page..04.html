@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>Test</title>
+<meta name="description" content="Notes on working with MD traffic data">
+<meta name="keywords" content="data.gov,traffic">
+<meta name="author" content="Dave Cuthbert">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../shared.css">
+<link rel="stylesheet" type="text/css" href="md-traffic-style.css">
+</head>
+<body>
+<div class="hero-image">
+    <div class="hero-text">
+       <h1 id="h1-hero">Continued - MD traffic data project</h1>
+    </div>
+ </div>
+<h2>Additional notes and details</h2>
+<p>Here are a few additional items of interest that are worth noting but that didn't really fit into the flow of the story.</p>
+
+<h3>Configure sqlite3 output</h3>
+<p>The default output style in sqlite3 works for some parsing, but it is not ideal for all purposes. When exploring data it may be helpful to change the output to columnar form and to add a header row. 
+<br><a target="_blank" href="images/sqlite-formatting.jpg"><img src="images/sqlite-formatting.jpg" alt="sqlite output formats"></a></p>
+
+<h3>Use of <code>SUM</code> or <code>COUNT</code></h3>
+<p>COUNT works well when field values are easily filtered. On the other hand, if the values are encoded as 1 or 0 then using SUM can be better quick way to get an aggregate count over a field. There are two benefits. The SQL is more compact with SUM (there's no where clause) and rows are returned when the sum  equals zero (COUNT doesn't return the output row). Here's an example counting alcohol related citations issued to Male drivers.</p>
+
+<div class="output" id="sum-count">
+ <pre>
+
+          sqlite> SELECT year, COUNT(Alcohol) 
+             ...> FROM alldata
+             ...> WHERE (year > '1989') AND (year < '2001') AND gender = 'M' AND alcohol = 1
+             ...> GROUP BY year;
+          Year        COUNT(Alcohol)
+          ----------  --------------
+          1992        31            
+          1993        42            
+          1994        44            
+          1996        44            
+          1997        48            
+          1998        35            
+          1999        43            
+          2000        103           
+          sqlite> SELECT year, SUM(Alcohol) 
+             ...> FROM alldata
+             ...> WHERE (year > '1989') AND (year < '2001') AND gender = 'M'
+             ...> GROUP BY year;
+          Year        SUM(Alcohol)
+          ----------  ------------
+          1990        0           
+          1991        0           
+          1992        31          
+          1993        42          
+          1994        44          
+          1995        0           
+          1996        44          
+          1997        48          
+          1998        35          
+          1999        43          
+          2000        103         
+          sqlite> 
+</pre>
+</div>
+
+<p> Thanks for reading this far, I hope these notes prove useful!</p>
+
+<!--
+<br><a target="_blank" href="images/errors-v-total-lines.jpg"><img src="images/errors-v-total-lines.jpg" alt="parsing errors"></a></p>
+-->
+
+<div id="pagenav">Previous: <a href="page..03.html">Difficulties with the data</a></div> 
+</body>
+</html>
+

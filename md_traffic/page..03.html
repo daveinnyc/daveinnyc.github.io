@@ -14,61 +14,20 @@
        <h1 id="h1-hero">Continued - MD traffic data project</h1>
     </div>
  </div>
-<h2>Additional notes and details</h2>
-<p>Here are a few additional items of interest that are worth noting but that didn't really fit into the flow of the story.</p>
+<h2>Difficulties with the data</h2>
+<p>Even a cursory look at these numbers show men consistently getting twice as many citations as women over the entire 15 year period which is a strange result. The <a href="https://www.census.gov/quickfacts/chart/SEX255215/24">US Census website</a> reports that Maryland has a slightly large proportion of females (51.5%) than males (48.5%).  
+<br><a target="_blank" href="images/daily-census.jpg"><img src="images/census.jpg" alt="Maryland population"></a></p>
+<p>Couples may debate just how surprising, but it is at least a little surprising that men would be cited twice as often as women. Perhaps there is some sort of selection going on that skews the data set. A few more queries indicate that this is, in fact, the case. All of the citations are related to incidents where there was an accident.
+<br><a target="_blank" href="images/all-accidents.jpg"><img src="images/all-accidents.jpg" alt="Sample is just for accidents"></a></p>
+<p>While it is certainly interesting that accident rates appear to be skewed towards the early part of the week, month and year if this data set only lists citations related to accidents, then it means that there is insufficient data to answer the original question. According to the day-month figures, the number of accidents per day is fairly constant. And so, accident related tickets should be too. Additional data on non-accident related tickets would be  needed to see if non-accident citations are also issued on a consistent basis. That data is missing.</p>
+<h3>Unanswered questions</h3>
+<p>So the original question, are there ticket quotas, is unresolved. To it a few others can be added. Do men really have twice as many accidents as women or do they just get ticketed twice as much for them? Why are there spikes in the accident rate at the beginning of the week? Is there a significant number of accidents where tickets aren't issued? Is there a way to determine how many people and or vehicles were involved in a given accident? And perhaps the sharpest question for this audience -- how can researchers get access to the additional data needed to answer these questions?</p>
 
-<h3>Configure sqlite3 output</h3>
-<p>The default output style in sqlite3 works for some parsing, but it is not ideal for all purposes. When exploring data it may be helpful to change the output to columnar form and to add a header row. 
-<br><a target="_blank" href="images/sqlite-formatting.jpg"><img src="images/sqlite-formatting.jpg" alt="sqlite output formats"></a></p>
+<h3>Conclusion</h3>
+<p>The Maryland data set is rich and can provide many intersting avenues of research. Unfortunately it only contains a subset of all citations issued and so it is insufficient to answer the question about quotas. However, working with this dataset has been a useful exercise, and especially valuable in highlighting the need to check data integrity, clean incoming data and validating assumptions before drawing conclusions.</p>
 
-<h3>Use of <code>SUM</code> or <code>COUNT</code></h3>
-<p>COUNT works well when field values are easily filtered. On the other hand, if the values are encoded as 1 or 0 then using SUM can be better quick way to get an aggregate count over a field. There are two benefits. The SQL is more compact with SUM (there's no where clause) and rows are returned when the sum  equals zero (COUNT doesn't return the output row). Here's an example counting alcohol related citations issued to Male drivers.</p>
-
-<div class="output" id="sum-count">
- <pre>
-
-          sqlite> SELECT year, COUNT(Alcohol) 
-             ...> FROM alldata
-             ...> WHERE (year > '1989') AND (year < '2001') AND gender = 'M' AND alcohol = 1
-             ...> GROUP BY year;
-          Year        COUNT(Alcohol)
-          ----------  --------------
-          1992        31            
-          1993        42            
-          1994        44            
-          1996        44            
-          1997        48            
-          1998        35            
-          1999        43            
-          2000        103           
-          sqlite> SELECT year, SUM(Alcohol) 
-             ...> FROM alldata
-             ...> WHERE (year > '1989') AND (year < '2001') AND gender = 'M'
-             ...> GROUP BY year;
-          Year        SUM(Alcohol)
-          ----------  ------------
-          1990        0           
-          1991        0           
-          1992        31          
-          1993        42          
-          1994        44          
-          1995        0           
-          1996        44          
-          1997        48          
-          1998        35          
-          1999        43          
-          2000        103         
-          sqlite> 
-</pre>
-</div>
-
-<p> Thanks for reading this far, I hope these notes prove useful!</p>
-
-<!--
-<br><a target="_blank" href="images/errors-v-total-lines.jpg"><img src="images/errors-v-total-lines.jpg" alt="parsing errors"></a></p>
--->
-
-<div id="pagenav">Previous: <a href="page..02.html">Working with the data</a></div> 
+<div id="pagenav">Previous: <a href="page..02.html">Working with the data</a> 
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next: <a href="page..04.html">Additional notes</a></div>
 </body>
 </html>
 
