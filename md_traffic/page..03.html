@@ -21,11 +21,6 @@
 <p>The default output style in sqlite3 works for some parsing, but it is not ideal for all purposes. When exploring data it may be helpful to change the output to columnar form and to add a header row. 
 <br><a target="_blank" href="images/sqlite-formatting.jpg"><img src="images/sqlite-formatting.jpg" alt="sqlite output formats"></a></p>
 
-<h3>Parsing the date field into subfields</h3>
-<p>When the Maryland released the citation data, the date was in the form 'mm/dd/yyyy'. After adding additional columns for 'year', 'month', 'day', and 'day of the week' parsing the original date during import was an easy way to get a more granular view.
-<br><a target="_blank" href="images/parse-date.jpg"><img src="images/parse-date.jpg" alt="sqlite output formats"></a></p>
- 
-
 <h3>Use of <code>SUM</code> or <code>COUNT</code></h3>
 <p>COUNT works well when field values are easily filtered. On the other hand, if the values are encoded as 1 or 0 then using SUM can be better quick way to get an aggregate count over a field. There are two benefits. The SQL is more compact with SUM (there's no where clause) and rows are returned when the sum  equals zero (COUNT doesn't return the output row). Here's an example counting alcohol related citations issued to Male drivers.</p>
 

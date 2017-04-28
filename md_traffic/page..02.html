@@ -16,6 +16,7 @@
  </div>
 <h1 class="construction">STILL WORKING ON THIS PAGE ....</h1>
 <h2>Working with the data</h2>
+<h3>Determining a date range</h3>
 <p>Since the values for the year field were known to be bad, the first step was to define a range of data. Since the file was last updated in 2015, any more recent dates had to be errors. The number of rows per year dropped off sharply before 1994, but were still significant until the early 1990's. The period from 1990 to 2015 was chosen as most likely to hold accurate values.
 </p>
 <div class="output" id="sql-years">
@@ -82,10 +83,23 @@
         Year    1
 </pre>
 </div>
-<!--
-<br><a target="_blank" href="images/errors-v-total-lines.jpg"><img src="images/errors-v-total-lines.jpg" alt="parsing errors"></a></p>
--->
-</p>
+<h3>Parsing the date field into subfields</h3>
+<p>When the Maryland released the citation data, the date was in the form 'mm/dd/yyyy'. After adding additional columns for 'year', 'month', 'd    ay', and 'day of the week' parsing the original date during import was an easy way to get a more granular view.
+<br><a target="_blank" href="images/parse-date.jpg"><img src="images/parse-date.jpg" alt="sqlite output formats"></a></p>
+ 
+
+<h2>Back to the question at hand ...</h2>
+<p>If there really are more citations handed out at the end of the month to 'meet quota' then there should be an uptick in reported citations. However, a first glance shows a serious drop at the end of the month. 
+<br><a target="_blank" href="images/day-of-month..01.jpg"><img src="images/day-of-month..01.jpg" alt="tickets per day"></a></p>
+
+<p>What's going on? The reason is that while all months have 28 days in them, only some months have 29 or more. Here is another view adjusted to show the number of citations per month-day.
+<br><a target="_blank" href="images/day-of-month..02.jpg"><img src="images/day-of-month..02.jpg" alt="adjusted tickets per day"></a></p>
+<p>The second graph is more balanced, men hover around 76.5 citations per day over the 15 years from 1990 to 2015. Women average slightly mor than half that figure, 37.9 citations per day. But even with this weighted view, the number of citations drops off towards the end of the month. Which is the opposite of popular opinion. So perhaps there is a yearly quota?
+<br><a target="_blank" href="images/monthly-citations..01.jpg"><img src="images/monthly-citations..01.jpg" alt="tickets per month"></a></p>
+<p>Or a weekly one?
+<br><a target="_blank" href="images/daily-citations..01.jpg"><img src="images/daily-citations..01.jpg" alt="tickets per day of the week"></a></p>
+<p>The numbers don't support either of those ideas. In all cases: day of the month; day of the week; and month, there are more citations toward the beginning of the period rather than towards the end. Given these figures it is hard to conclude that there is a quota in effect.</p>
+<p>However, there are some difficulties with the data.</p>  
 
 <div id="pagenav">Previous: <a href="index.html">Getting started</a> 
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next: <a href="page..03.html">Additional notes</a></div>
