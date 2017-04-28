@@ -33,6 +33,7 @@ img {
     border: 1px solid orange;
     padding: 2px;
     margin: auto;
+    margin-top: 20px;
     width: 450px;
 }
 
@@ -63,7 +64,7 @@ br {
 #pagenav {
    padding-top: 20px;
    margin: auto;
-   width: 50%;
+   width: 75%;
 }
 
 #h1-hero {
