@@ -6,18 +6,71 @@
 <meta name="author" content="Dave Cuthbert">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../shared.css">
-<link rel="stylesheet" type="text/css" href="skype-avatar-style.css">
+<link rel="stylesheet" type="text/css" href="skype-avatars-style.css">
 </head>
 <body>
 <div class="hero-image">
     <div class="hero-text">
-       <h1 id="h1-hero">Notes on collecting Skype Avatars</h1>
+       <h1 id="h1-hero">Collecting Skype Avatars</h1>
     </div>
- </div>
-<h1>Find the foto!</h1>
-<br><a target="_blank" href="images/errors-v-total-lines.jpg"><img src="images/errors-v-total-lines.jpg" alt="parsing errors"></a></p>
+</div>
+
+<h2>Introduction</h2>
+<p>A Skype account has a lot of useful account information. The storage backend is just a series of sqlite databases so it isn't too difficult to dig inside and see what's there. This post suggests a way to use the information stored in the database to collect the avatars for all of the people in the contact list.     
 </p>
-<div id="pagenav"><a class="navlink" href="page..02.html">Next</a></div>
+
+
+<h2>Find the database</h2>
+<p>Skype's data is stored in a few different files, but they are all together in the same directory. On Windows the path will be something like:<br> <code> C:\Users\USERNAME\AppData\Roaming\Skype\SKYPE_NAME </code></p>
+
+<p>Sqlite stores each database within a file. The database, and table, of interest for this exercise is in the file named <code>main.db</code>.</p>
+
+
+<h2>Determine the structure of <code>main.db</code></h2>
+<p>Open up the SQLite command line tool, <code>sqlite3</code>. Then the first step is to query the sqlite metadata to get a list of the tables in this database file.</p>
+<div class="output" id="list-tables">
+   <pre>
+            skype> sqlite3 main.db
+            SQLite version 3.8.7.4 2014-12-09 01:34:36
+            Enter ".help" for usage hints.
+            sqlite> SELECT name FROM sqlite_master WHERE type='table';
+            DbMeta
+            AppSchemaVersion
+            Contacts
+            LegacyMessages
+            Calls
+            Transfers
+            Voicemails
+            Chats
+            Messages
+            ContactGroups
+            Videos
+            SMSes
+            CallMembers
+            ChatMembers
+            Alerts
+            Conversations
+            Participants
+            VideoMessages
+            MediaDocuments
+            Translators
+            MessageAnnotations
+            tracker_journal
+            CallHandlers
+            ConversationViews
+            ContentSharings
+            DataChannels
+            Accounts
+   </pre>
+</div>
+
+
+    
+
+<div id="pagenav">
+         <a class="navlink" href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <a class="navlink" href="page..02.html">Next</a>
+</div>   
 
 </body>
 </html>
