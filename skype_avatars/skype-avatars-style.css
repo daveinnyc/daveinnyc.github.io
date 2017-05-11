@@ -33,3 +33,7 @@
 #print-to-file.output:hover {
    height: 70px;
 }
+
+#filename-formats.output:hover {
+   height: 90px;
+}
