@@ -2,7 +2,7 @@
 <head>
 <title>Skype Avatars</title>
 <meta name="description" content="Notes on colleccting avatar fotos from skype">
-<meta name="keywords" content="skype,avatar,python,sqlite3">
+<meta name="keywords" content="skype,avatar,sql,bash,sqlite3">
 <meta name="author" content="Dave Cuthbert">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../shared.css">
@@ -14,10 +14,43 @@
        <h1 id="h1-hero">Skype Avatars</h1>
     </div>
 </div>
-<h2></h2>
-<!-- <br><a target="_blank" href="images/.jpg"><img src="images/.jpg" alt=""></a> -->
+<h2>Fetch the avatar files</h2>
+<p>The quickest way to fetch the files is to pass the output file into wget like this:<br>
+<div class="output">
+<pre>
+            wget -i urllist
+</pre>
+</div>
+<p>NOTE: Depending on how many avatar files there are, it might be a good idea to create a subdirectory for them before running wget.</p>
 
-</p>
+<h2>Clean up the file names</h2>
+<p>Once retrieved <code>wget</code> names the avatar files based on the URL used to fetch them. They take two forms and look something like this:<br>
+<div class="output">
+<pre>
+            a_skype_name@auth_key=22222222
+            another_skype_name@auth_key=12345678
+            public 
+            public.1 
+            really_yet_another_skype_name@auth_key=234567890
+</pre>
+</div>
+<p>These names aren't ideal, but it is easy to to clean them up a bit with a couple of lines of <code>bash</code>.</p>
+<p>First add the 'jpg' extension to the public* files:<br>
+<div class="output">
+<pre>
+            for f in $(ls pub*) ; do mv ${f} ${f}.jpg ; done
+</pre>
+</div>
+<p>Then, chop off the "@auth_key=" from the other files and give them the 'jpg' extension too.<br>
+<div class="output">
+<pre>
+            for f in $(ls *@*) ; do mv ${f} $(ls ${f}|cut -d'@' -f1).jpg ; done
+</pre>
+</div>
+<p>All that's left is to take a look at the pictures and delete the ones which are unwanted. And, of course, it's never to soon to see if there are more useful bits of data in the other database files ...</p>
+
+<h3>Happy hunting!</h3>
+
 
 
 

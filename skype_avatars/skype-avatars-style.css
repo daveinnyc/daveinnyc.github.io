@@ -20,11 +20,16 @@
    overflow: hidden;
 }
 
-.construction {
-   margin: auto;
-   width: 700px;
-}
 
 #list-tables.output:hover {
    height: 500px;
+}
+
+
+#list-columns.output:hover {
+   height: 600px;
+}
+
+#print-to-file.output:hover {
+   height: 70px;
 }

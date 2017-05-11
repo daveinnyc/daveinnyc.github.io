@@ -2,7 +2,7 @@
 <head>
 <title>Skype Avatars</title>
 <meta name="description" content="Notes on colleccting avatar fotos from skype">
-<meta name="keywords" content="skype,avatar,python,sqlite3">
+<meta name="keywords" content="skype,avatar,sql,bash,sqlite3">
 <meta name="author" content="Dave Cuthbert">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../shared.css">
@@ -21,7 +21,12 @@
 
 
 <h2>Find the database</h2>
-<p>Skype's data is stored in a few different files, but they are all together in the same directory. On Windows the path will be something like:<br> <code> C:\Users\USERNAME\AppData\Roaming\Skype\SKYPE_NAME </code></p>
+<p>Skype's data is stored in a few different files, but they are all together in the same directory. On Windows the path will be something like:<br>
+<div class="output">
+<pre> 
+            C:\Users\USERNAME\AppData\Roaming\Skype\SKYPE_NAME
+</pre></p>
+</div>   
 
 <p>Sqlite stores each database within a file. The database, and table, of interest for this exercise is in the file named <code>main.db</code>.</p>
 
@@ -64,6 +69,72 @@
    </pre>
 </div>
 
+<p>'Contacts' is a likely spot to store information on the avatars. Take a look at the fields by running the following sqlite dot command:<br>
+<div class="output">
+<pre>
+            .schema contacts
+</pre></p> 
+</div>
+
+<p>(NOTE: The output has been reformatted for clarity.)</p>
+<div class="output" id="list-columns">
+   <pre>
+            sqlite> .schema contacts
+            CREATE TABLE Contacts (id INTEGER NOT NULL PRIMARY KEY, is_permanent INTEGER, 
+            type INTEGER, skypename TEXT, pstnnumber TEXT, aliases TEXT, fullname TEXT, 
+            birthday INTEGER, gender INTEGER, languages TEXT, country TEXT, province TEXT, 
+            city TEXT, phone_home TEXT, phone_office TEXT, phone_mobile TEXT, emails TEXT, 
+            hashed_emails TEXT, homepage TEXT, about TEXT, avatar_image BLOB, mood_text TEXT, 
+            rich_mood_text TEXT, timezone INTEGER, capabilities BLOB, profile_timestamp 
+            INTEGER, nrof_authed_buddies INTEGER, ipcountry TEXT, avatar_timestamp INTEGER, 
+            mood_timestamp INTEGER, received_authrequest TEXT, authreq_timestamp INTEGER, 
+            lastonline_timestamp INTEGER, availability INTEGER, displayname TEXT, refreshing 
+            INTEGER, given_authlevel INTEGER, given_displayname TEXT, assigned_speeddial TEXT, 
+            assigned_comment TEXT, alertstring TEXT, lastused_timestamp INTEGER, authrequest_count 
+            INTEGER, assigned_phone1 TEXT, assigned_phone1_label TEXT, assigned_phone2 TEXT, 
+            assigned_phone2_label TEXT, assigned_phone3 TEXT, assigned_phone3_label TEXT, 
+            buddystatus INTEGER, isauthorized INTEGER, popularity_ord INTEGER, external_id 
+            TEXT, external_system_id TEXT, isblocked INTEGER, authorization_certificate BLOB, 
+            certificate_send_count INTEGER, account_modification_serial_nr INTEGER, 
+            saved_directory_blob BLOB, nr_of_buddies INTEGER, server_synced INTEGER, 
+            contactlist_track INTEGER, last_used_networktime INTEGER, authorized_time INTEGER, 
+            sent_authrequest TEXT, sent_authrequest_time INTEGER, sent_authrequest_serial 
+            INTEGER, buddyblob BLOB, cbl_future BLOB, node_capabilities INTEGER, revoked_auth 
+            INTEGER, added_in_shared_group INTEGER, in_shared_group INTEGER, authreq_history 
+            BLOB, profile_attachments BLOB, stack_version INTEGER, offline_authreq_id INTEGER, 
+            node_capabilities_and INTEGER, authreq_crc INTEGER, authreq_src INTEGER, pop_score 
+            INTEGER, authreq_nodeinfo BLOB, main_phone TEXT, unified_servants TEXT, 
+            phone_home_normalized TEXT, phone_office_normalized TEXT, phone_mobile_normalized 
+            TEXT, sent_authrequest_initmethod INTEGER, authreq_initmethod INTEGER, verified_email 
+            BLOB, verified_company BLOB, sent_authrequest_extrasbitmask INTEGER, liveid_cid TEXT, 
+            is_auto_buddy INTEGER, extprop_seen_birthday INTEGER, extprop_sms_target INTEGER, 
+            extprop_external_data TEXT, group_membership INTEGER, firstname TEXT, lastname TEXT, 
+            is_mobile INTEGER, is_trusted INTEGER, network_availability INTEGER, <span style="color:goldenrod">avatar_url TEXT</span>, 
+            avatar_url_new TEXT, avatar_hiresurl TEXT, avatar_hiresurl_new TEXT, profile_json TEXT, 
+            profile_etag TEXT, mutual_friend_count INTEGER, dirblob_last_search_time INTEGER);
+            CREATE INDEX IX_Contacts_skypename ON Contacts (skypename);
+            CREATE INDEX IX_Contacts_buddystatus ON Contacts (buddystatus);
+            CREATE INDEX IX_Contacts_type ON Contacts (type);
+            CREATE INDEX IX_Contacts_displayname_skypename ON Contacts (displayname COLLATE NOCASE, skypename);
+   </pre>
+</div>
+
+<h2>Get the URL list</h2>
+<p>Tucked away towards the end of the column list is one which sounds promising: 'avatar_url'. That can be inspected by running:<br>
+<div class="output">
+<pre>
+           SELECT avatar_url FROM contacts WHERE avatar_url != 'None';
+</pre></p>
+</div>
+<p>To output the list to a file first run a little setup in sqlite and then rerun the query.<p>
+<div class="output" id="print-to-file">
+   <pre>
+           sqlite> .mode csv
+           sqlite> .output urllist
+           sqlite> SELECT avatar_url FROM contacts WHERE avatar_url != 'None';
+           sqlite> 
+   </pre></p>
+</div>
 
     
 
