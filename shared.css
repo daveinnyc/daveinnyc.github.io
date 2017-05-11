@@ -70,12 +70,12 @@ br {
 #pagenav {
    padding-top: 100px;
    margin: auto;
-   width: 100%;
+   width: 800;
    text-align: center;
 }
 
 .navlink {
-   background: rgba(0,0,255,0.4);
+   background: #6495ED;
    color: white !Important;
    text-decoration: none;
    font-weight: bold;
