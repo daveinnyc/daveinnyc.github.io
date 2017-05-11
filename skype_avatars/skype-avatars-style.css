@@ -1,0 +1,34 @@
+/* The hero image */
+.hero-image {
+    /* The image used */
+    background-image: url("../images/nasa-image..02.jpg");
+
+    /* Set a specific height */
+    height: 35%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.output {
+   margin: auto;
+   width: 75%;
+   height: 50px;
+   overflow: hidden;
+}
+
+.construction {
+   margin: auto;
+   width: 700px;
+}
+
+#sql-years.output:hover {
+   height: 900px;
+}
+
+#sum-count.output:hover {
+   height: 500px;
+}
