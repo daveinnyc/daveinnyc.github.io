@@ -8,18 +8,24 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "self": {
-        "vendor": "com.snowplowanalytics",
-        "name": "ad_click",
+        "vendor": "com.dwctest",
+        "name": "customEvent",
         "format": "jsonschema",
         "version": "1-0-0"
     },
     "type": "object",
     "properties": {
-        "bannerId": {
+        "event1": {
+            "type": "string"
+        },
+        "event2": {
+            "type": "string"
+        },
+        "event3": {
             "type": "string"
         }
     },
-    "required": ["bannerId"],
+    "required": ["event1", "event2", "event3"],
     "additionalProperties": false
 }
 </pre>
