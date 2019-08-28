@@ -74,10 +74,12 @@ window.snowplow('trackSelfDescribingEvent', {
 </ul>
 
     
-<p>A custom event (invisible on page)<p>
+<p>A custom event<p>
 <script>
 window.snowplow("Event 1", "001", "true");
-document.write("Gabba Gabba Hey");
+var today = new Date();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();    
+document.write("Sent at: ${time}");
 </script>
     
 <p> A copy of the <a href="./self-desc-json.html">self defining JSON schema</a></p>
