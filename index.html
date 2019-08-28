@@ -41,10 +41,10 @@ window.snowplow('enableLinkClickTracking');
 </head>
 
 <body>
-<p>Hola! 3000</p>
+<p>Structured event: Attached to a link</p>
 <a href="" onclick="snowplow('trackStructEvent', 'categoryVal', 'actionVal', 'labelVal', 'propertyVal', '001')">LINK</a>
 
-<!-- Links to check link checking works -->
+<p>Links that should be part of LinkClickTracking</p>    
 <ul>
   <li><a href="http://www.google.com">google</a>  This will redirect to google.com</li>
   <li><a href="https://bbc.com">bbc</a>  This has no redirect</li>
@@ -52,7 +52,11 @@ window.snowplow('enableLinkClickTracking');
   <li><a href="http://">debug</a>  This will not find it's target</li>
 </ul>
 
-
-    <p> A copy of the <a href="./self-desc-json.html">self defining JSON schema</a></p>
+    
+<p>A custom event<p>
+<form>
+    <button><button>
+</form>
+<p> A copy of the <a href="./self-desc-json.html">self defining JSON schema</a></p>
 </body>
 </html>
