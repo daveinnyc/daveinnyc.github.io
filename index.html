@@ -79,7 +79,7 @@ window.snowplow('trackSelfDescribingEvent', {
 window.snowplow("Event 1", "001", "true");
 var today = new Date();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();    
-document.write("Sent at: ${time}");
+document.write(`Sent at: ${time}`);
 </script>
     
 <p> A copy of the <a href="./self-desc-json.html">self defining JSON schema</a></p>
