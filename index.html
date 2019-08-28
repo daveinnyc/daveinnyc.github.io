@@ -28,7 +28,7 @@
 );
 
 
-// window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { // Initialise a tracker
+// window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { 
 //   changed app id from cf to dave
 //   creted fake collector endpoint
 window.snowplow('newTracker', 'dave', '192.168.1.100', { // Initialise a tracker
@@ -36,11 +36,8 @@ window.snowplow('newTracker', 'dave', '192.168.1.100', { // Initialise a tracker
   cookieDomain: '{{MY-COOKIE-DOMAIN}}'
   }
 );
-</script>
-<script>
+
 window.snowplow('trackPageView');
-</script>
-<script>
 window.snowplow('enableLinkClickTracking');
 </script>
 <!-- Snowplow stops plowing -->
