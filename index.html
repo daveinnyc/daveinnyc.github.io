@@ -30,7 +30,8 @@
 //   created fake collector endpoint 192.168.1.100
 //   changed fake collector address to something that will SSL validate    
 //   change fake collector to point to mini instance    
-window.snowplow('newTracker', 'dave', '54.198.202.41', { // Initialise a tracker
+//   added http to endpoint address    
+window.snowplow('newTracker', 'dave', 'http://54.198.202.41', { // Initialise a tracker
   appId: '{{MY-SITE-ID}}',
   cookieDomain: '{{MY-COOKIE-DOMAIN}}'
   }
