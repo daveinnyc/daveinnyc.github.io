@@ -34,8 +34,25 @@ window.snowplow('newTracker', 'dave', '192.168.1.100', { // Initialise a tracker
   }
 );
 
+// Snowplow built in events    
 window.snowplow('trackPageView');
 window.snowplow('enableLinkClickTracking');
+
+// DWC custom event function
+var input_eventName;
+var input_eventNumber;
+var input_Present;
+
+window.snowplow('trackSelfDescribingEvent', {
+    schema: 'iglu:com.dwctest/customEvent/jsonschema/1-0-0',
+    data: {
+        eventName: input_eventName,
+        eventNumber: input_eventNumber,
+        EventPresent: input_Present
+    }
+});
+
+    
 </script>
 <!-- Snowplow stops plowing -->
 </head>
@@ -53,10 +70,9 @@ window.snowplow('enableLinkClickTracking');
 </ul>
 
     
-<p>A custom event<p>
-<form>
-    <button><button>
-</form>
+<p>A custom event (invisible on page)<p>
+window.snowplow("Event 1", "001", "true");
+    
 <p> A copy of the <a href="./self-desc-json.html">self defining JSON schema</a></p>
 </body>
 </html>
