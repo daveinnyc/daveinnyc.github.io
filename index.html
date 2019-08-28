@@ -32,10 +32,9 @@
 //   change fake collector to point to mini instance    
 //   added http to endpoint address (removed - didn't work)   
 //   added unsecure parameter    
+//   add fake appId  change:  appId: '{{MY-SITE-ID}}',    to: appId: "DWCAppId",  
 window.snowplow('newTracker', 'dave', '54.198.202.41', { // Initialise a tracker
-  // add fake appId  
-  appId: '{{MY-SITE-ID}}',
-  //appId: "DWCAppId",  
+  appId: "DWCAppId",  
   cookieDomain: '{{MY-COOKIE-DOMAIN}}',
   forceUnsecureTracker: true,  
   forceSecureTracker: false    
