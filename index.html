@@ -33,9 +33,12 @@
 //   added http to endpoint address (removed - didn't work)   
 //   added unsecure parameter    
 window.snowplow('newTracker', 'dave', '54.198.202.41', { // Initialise a tracker
-  appId: '{{MY-SITE-ID}}',
+  // add fake appId  
+  // appId: '{{MY-SITE-ID}}',
+  appId: "DWCAppId",  
   cookieDomain: '{{MY-COOKIE-DOMAIN}}',
-  forceUnsecureTracker: true  
+  forceUnsecureTracker: true,  
+  forceSecureTracker: false    
   }
 );
 
