@@ -29,7 +29,8 @@
 //   changed app id from cf to dave
 //   created fake collector endpoint 192.168.1.100
 //   changed fake collector address to something that will SSL validate    
-window.snowplow('newTracker', 'dave', 'd1fc8wv8zag5ca.cloudfront.net', { // Initialise a tracker
+//   change fake collector to point to mini instance    
+window.snowplow('newTracker', 'dave', '54.198.202.41', { // Initialise a tracker
   appId: '{{MY-SITE-ID}}',
   cookieDomain: '{{MY-COOKIE-DOMAIN}}'
   }
