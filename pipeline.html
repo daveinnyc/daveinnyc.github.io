@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>PIPELINE CONFIG: sp javascript collector end point</title>
+
+</head>
+
+<body>
+<p>Structured event: Attached to a link</p>
+
+
+<p>A custom event<p>
+<script>
+window.snowplow("Event 1", "001", "true");
+var today = new Date();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();    
+document.write("Sent at: " + time);
+</script>
+    
+</body>
+</html>
+# EOF
