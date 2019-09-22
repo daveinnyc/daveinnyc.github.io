@@ -1,12 +1,22 @@
 <html>
 <head>
 <title>PIPELINE CONFIG: sp javascript collector end point</title>
-<!-- Snowplow starts plowing -->
+
+  <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.11.0/sp.js","snowplow"));
+;(function(p,l,o,w,i,n,g)
+  {if(!p[i])
+     {p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+      p.GlobalSnowplowNamespace.push(i);
+      p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)};
+      p[i].q=p[i].q||[];
+      n=l.createElement(o);
+      g=l.getElementsByTagName(o)[0];
+      n.async=1;
+      n.src=w;
+      g.parentNode.insertBefore(n,g)
+     }
+  }(window, document, "script", "//d1fc8wv8zag5ca.cloudfront.net/2.10.2/sp.js", "snowplow"));
 
 window.snowplow('newTracker', 'cf', 'd2vp0nn5mf0lkd.cloudfront.net', { // Initialise a tracker
   appId: 'dwc-pipeline',
@@ -21,7 +31,6 @@ window.snowplow('trackPageView');
 
 <body>
 <p>Structured event: Not visible on page, track page view</p>
-window.snowplow('trackPageView');
 
 <p>A custom event<p>
 <script>
