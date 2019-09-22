@@ -2,6 +2,8 @@
 <head>
 <title>PIPELINE CONFIG: sp javascript collector end point</title>
 
+httpChannel.setRequestHeader("X-Hello", "World", false);
+  
   <!-- Snowplow starts plowing -->
 <script type="text/javascript">
 ;(function(p,l,o,w,i,n,g)
@@ -25,6 +27,10 @@ window.snowplow('newTracker', 'cf', 'd2vp0nn5mf0lkd.cloudfront.net', { // Initia
 
 window.snowplow('trackPageView');
 </script>
+  
+<script>
+  httpChannel.setRequestHeader("Access-Control-Allow-Origin", "World", true);
+</script>  
 <!-- Snowplow stops plowing -->
     
 </head>
