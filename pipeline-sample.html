@@ -19,10 +19,19 @@
   }(window, document, "script", "//d1fc8wv8zag5ca.cloudfront.net/2.11.0/sp.js", "snowplow"));
 
 window.snowplow('newTracker', 'cf', 'd2vp0nn5mf0lkd.cloudfront.net', { // Initialise a tracker
-  appId: 'dwc-pipeline',
-  cookieDomain: '{{MY-COOKIE-DOMAIN}}'
+      appId: 'dwc-pipeline',
+      cookieName: "_dwc01_",
+	    encodeBase64: false,
+		  respectDoNotTrack: false,
+		  userFingerprint: true,
+		  forceSecureTracker: false,
+		  userFingerprintSeed: 83838383838,
+		  pageUnloadTimer: 0,
+		  eventMethod: "get",
+		  bufferSize: 5,
+		  cookieDomain: '{{MY-COOKIE-DOMAIN}}'
 });
-
+  
 window.snowplow('trackPageView');
 </script>
 <!-- Snowplow stops plowing -->
