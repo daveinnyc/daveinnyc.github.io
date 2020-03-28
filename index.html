@@ -1,91 +1,9 @@
 <html>
 <head>
-<title>sp javascript collector end point</title>
-
-<!-- Snowplow starts plowing -->
-</script>
-
-<script type="text/javascript">
-(function(p,l,o,w,i,n,g){
-    if(!p[i]){
-      p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-      p.GlobalSnowplowNamespace.push(i);
-      p[i]=function(){
-         (p[i].q=p[i].q||[]).push(arguments)
-      };
-      p[i].q=p[i].q||[];
-      n=l.createElement(o);
-      g=l.getElementsByTagName(o)[0];
-      n.async=1;
-      n.src=w;
-      g.parentNode.insertBefore(n,g)
-    }
-  }
-  (window,document,"script","https://d1fc8wv8zag5ca.cloudfront.net/2.10.2/sp.js","snowplow")
-);
-
-
-// window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { 
-//   changed app id from cf to dave
-//   created fake collector endpoint 192.168.1.100
-//   changed fake collector address to something that will SSL validate    
-//   change fake collector to point to mini instance    
-//   added http to endpoint address (removed - didn't work)   
-//   added unsecure parameter    
-//   add fake appId  change:  appId: '{{MY-SITE-ID}}',    to: appId: "DWCAppId",  
-window.snowplow('newTracker', 'dave', '54.198.202.41', { // Initialise a tracker
-  appId: "DWCAppId",  
-  cookieDomain: '{{MY-COOKIE-DOMAIN}}',
-  forceUnsecureTracker: true,  
-  forceSecureTracker: false    
-  }
-);
-
-// Snowplow built in events    
-window.snowplow('trackPageView');
-window.snowplow('enableLinkClickTracking');
-
-// DWC custom event function
-var input_eventName;
-var input_eventNumber;
-var input_Present;
-
-window.snowplow('trackSelfDescribingEvent', {
-    schema: 'iglu:com.dwctest/customEvent/jsonschema/1-0-0',
-    data: {
-        eventName: input_eventName,
-        eventNumber: input_eventNumber,
-        EventPresent: input_Present
-    }
-});
-
-    
-</script>
-<!-- Snowplow stops plowing -->
+<title>Landing page</title>
 </head>
 
 <body>
-<p>Structured event: Attached to a link</p>
-<a href="" onclick="snowplow('trackStructEvent', 'categoryVal', 'actionVal', 'labelVal', 'propertyVal', '001')">LINK</a>
-
-<p>Links that should be part of LinkClickTracking</p>    
-<ul>
-  <li><a href="http://www.google.com">google</a> This connection will redirect to https</li>
-  <!-- <li><a href="https://www.google.com">google</a> This connection is already https</li> -->
-  <li><a href="https://bbc.com">bbc</a>  This has no redirect</li>
-  <li><a href="https://thiswillfail.nope">fail</a>  This link will fail</li>
-  <li><a href="http://">debug</a>  This will not find it's target</li>
-</ul>
-
-    
-<p>A custom event<p>
-<script>
-window.snowplow("Event 1", "001", "true");
-var today = new Date();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();    
-document.write("Sent at: " + time);
-</script>
-    
-<p> A copy of the <a href="./self-desc-json.html">self defining JSON schema</a></p>
+<p>Nothing to see here!</p>
 </body>
 </html>
